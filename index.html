@@ -289,6 +289,16 @@
 
         ];
 
+          // Предзагрузка изображений
+          function preloadBlockImages() {
+            blocks.forEach(block => {
+              const img = new Image();
+              img.src = block.image;
+            });
+          }
+
+          preloadBlockImages();
+        
         const promptElem = document.querySelector('#prompt b');
         const blocksContainer = document.getElementById('blocks-container');
         const feedback = document.getElementById('feedback');
