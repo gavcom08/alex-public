@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Приглашение на день рождения</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Press Start 2P', cursive;
+            background: url('https://img.goodfon.ru/original/1024x600/6/18/igry-minecraft-mainkraft-sunrise.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            max-width: 720px;
+            margin: 40px auto 80px auto;
+            padding: 40px 30px 50px 30px;
+            border: 5px solid #56a14e;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #56a14e;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: #56a14e;
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 4px #0a1605;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 3px #0d2a09;
+        }
+
+        #game {
+            margin: 30px auto 20px auto;
+        }
+
+        #prompt {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #a8d08a;
+            text-shadow: 2px 2px 4px #2c5207;
+        }
+
+        #blocks-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+
+        .game-text {
+            background: linear-gradient(76deg, #fa1c8c 0%, #527ce7 46.89%, #2ebacf 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            animation: gradient-shift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .block {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid #56a14e;
+            box-shadow: 0 0 10px #56a14e;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.15s, box-shadow 0.3s;
+        }
+
+        .block:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #7bc359;
+        }
+
+        #feedback {
+            font-size: 1.1em;
+            min-height: 28px;
+            margin-top: 12px;
+            color: #adebad;
+            text-shadow: 1px 1px 3px #154806;
+        }
+
+        #score {
+            font-size: 1.5em;
+            margin-top: 22px;
+            color: #9fdf8c;
+            text-shadow: 2px 2px 5px #2b6012;
+        }
+
+        #timer {
+            font-size: 1.5em;
+            color: #f9d71c;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #7a6f02;
+        }
+
+        #map-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            border: 3px solid #56a14e;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #56a14e;
+        }
+
+        a.map-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-family: 'Press Start 2P', cursive;
+            color: #7bc359;
+            text-decoration: none;
+            font-size: 1em;
+            text-shadow: 1px 1px 3px #154806;
+        }
+
+        a.map-link:hover {
+            text-decoration: underline;
+        }
+
+        button.rsvp {
+            background-color: #56a14e;
+            border: none;
+            padding: 14px 28px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.1em;
+            color: #1a2208;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 35px;
+            box-shadow: 0 0 18px #56a14e;
+            transition: background-color 0.3s ease;
+        }
+
+        button.rsvp:hover {
+            background-color: #7bc359;
+        }
+
+        button.restart-btn {
+            background-color: #7bc359;
+            border: none;
+            padding: 12px 24px;
+            margin: 12px 24px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1em;
+            color: #1a2208;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #7bc359;
+            transition: background-color 0.3s ease;
+            display: none;
+            /* скрываем по умолчанию */
+        }
+
+        button.restart-btn:hover {
+            background-color: #56a14e;
+            color: #e0e0e0;
+        }
+
+
+        @media(max-width: 480px) {
+            .container {
+                margin: 20px 20px 60px 20px;
+                padding: 30px 15px 40px 15px;
+                border-width: 3px;
+            }
+
+            #blocks-container {
+                gap: 12px;
+            }
+
+            .block {
+                width: 75px;
+                height: 75px;
+            }
+
+            iframe {
+                height: 300px;
+            }
+
+            #timer,
+            #score {
+                font-size: 1.2em;
+            }
+
+            h1 {
+                font-size: 1.6em;
+                margin-bottom: 15px;
+            }
+
+            p,
+            #feedback,
+            #prompt,
+            button.rsvp,
+            a.map-link {
+                font-size: 0.9em;
+            }
+
+            #prompt {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Приглашаю на 6 день рождения Александра!</h1>
+        <p>Привет! Будет весело! Будет торт, бассейн, костер и музыка!</p>
+        <p> <b>Дата:</b> 17 августа 2025<br>
+            <b>Время:</b> 15:00<br>
+        </p>
+
+        <div id="map-container">
+            <h2>Место проведения:</h2>
+            <iframe
+                src="https://yandex.ru/map-widget/v1/?ll=38.930429%2C45.090188&z=15&l=map&pt=38.930429,45.090188,pm2rdm"
+                allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="Яндекс Карта с меткой места проведения"></iframe>
+            <br>
+            <a href="https://yandex.ru/maps/?ll=38.930429%2C45.090188&z=15&l=map&pt=38.930429,45.090188,pm2rdm"
+                target="_blank" class="map-link" rel="noopener noreferrer">
+                Открыть карту в Яндекс.Картах
+            </a>
+        </div>
+
+        <div id="game" role="main" aria-live="polite" aria-atomic="true">
+            <h2 class="game-text">Сыграй с нами!</h2>
+            <div id="timer">Время: 20</div>
+            <p id="prompt">Нажми на блок: <b></b></p>
+            <div id="blocks-container" role="list"></div>
+            <div id="feedback" aria-live="assertive"></div>
+            <button class="restart-btn" id="restart-button">Начать заново</button>
+            <p id="score">Счёт: 0</p>
+        </div>
+
+        <button class="rsvp" id="rsvp-button">Подтвердить участие</button>
+        <p id="response-message"></p>
+    </div>
+
+    <script>
+        const blocks = [
+            { name: 'грязь', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/2/2f/Dirt.png/revision/latest?cb=20220112085643' },
+            { name: 'травяной блок', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c7/Grass_Block.png/revision/latest?cb=20230226144250' },
+            { name: 'камень', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/d4/Stone.png/revision/latest?cb=20220112085705' },
+            { name: 'дерево', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1d/Oak_Wood_%28UD%29_JE5_BE2.png/revision/latest?cb=20191220090120' },
+            { name: 'песок', image: 'https://minecraft.wiki/images/Sand_JE5_BE3.png?ae2df' },
+            { name: 'вода', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/0/09/Water_JE16.png/revision/latest?cb=20220315035650' },
+            { name: 'магма', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/d1/Magma_Block_JE2_BE2.gif/revision/latest?cb=20200915183320' },
+            { name: 'мясо', image: 'https://minecraft.wiki/images/Raw_Beef_JE4_BE3.png?f3d10' },
+            { name: 'яйцо', image: 'https://minecraft.wiki/images/Egg_JE2_BE2.png?495d9' },
+            { name: 'золотая руда', image: 'https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1d/Deepslate_Gold_Ore_JE2_BE1.png/revision/latest?cb=20210326000354' },
+
+
+
+
+        ];
+
+        const promptElem = document.querySelector('#prompt b');
+        const blocksContainer = document.getElementById('blocks-container');
+        const feedback = document.getElementById('feedback');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const responseMessage = document.getElementById('response-message');
+        const restartButton = document.getElementById('restart-button');
+        const gameTime = 20;
+
+        let score = 0;
+        let currentCorrectIndex = 0;
+        let timeLeft = gameTime;
+        let timerId = null;
+        let gameOver = false;
+        let timerStarted = false;
+
+        function restartGame() {
+            score = 0;
+            timeLeft = gameTime;
+            timerStarted = false;
+            gameOver = false;
+            scoreDisplay.textContent = 'Счёт: 0';
+            feedback.textContent = '';
+            timerDisplay.textContent = `Время: ${gameTime}`;
+            clearInterval(timerId);
+            restartButton.style.display = 'none'; // Скрываем кнопку
+            newTask();
+
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getOptions(correctIndex) {
+            const options = [blocks[correctIndex]];
+            const others = blocks.filter((_, idx) => idx !== correctIndex);
+            shuffle(others);
+            while (options.length < 4 && others.length) {
+                options.push(others.pop());
+            }
+            return shuffle(options);
+        }
+
+        function startTimer() {
+            if (timerStarted) return; // Запускаем таймер только один раз
+            timerStarted = true;
+            timerDisplay.textContent = "Время: " + timeLeft;
+            timerId = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    timerDisplay.textContent = "Время вышло!";
+                    endGame("Время закончилось! Твой итоговый счёт: " + score, true);
+                } else {
+                    timerDisplay.textContent = "Время: " + timeLeft;
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerId);
+        }
+
+        function newTask() {
+            if (gameOver) return;
+            feedback.textContent = '';
+            currentCorrectIndex = Math.floor(Math.random() * blocks.length);
+            const options = getOptions(currentCorrectIndex);
+
+            promptElem.textContent = blocks[currentCorrectIndex].name;
+            blocksContainer.innerHTML = '';
+            options.forEach(block => {
+                const blockDiv = document.createElement('div');
+                blockDiv.classList.add('block');
+                blockDiv.style.backgroundImage = `url(${block.image})`;
+                blockDiv.setAttribute('role', 'listitem');
+                blockDiv.setAttribute('tabindex', '0');
+                blockDiv.setAttribute('aria-label', `Блок: ${block.name}`);
+
+                blockDiv.addEventListener('click', () => {
+                    startTimer();
+                    checkAnswer(block);
+                });
+                blockDiv.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        startTimer();
+                        checkAnswer(block);
+                    }
+                });
+
+                blocksContainer.appendChild(blockDiv);
+            });
+        }
+
+        function checkAnswer(selectedBlock) {
+            if (gameOver) return;
+
+            if (selectedBlock.name === blocks[currentCorrectIndex].name) {
+                score++;
+                scoreDisplay.textContent = 'Счёт: ' + score;
+                feedback.style.color = '#7bc359';
+                feedback.textContent = 'Правильно! Молодец!';
+                setTimeout(() => {
+                    if (!gameOver) newTask();
+                }, 1200);
+            } else {
+                endGame("Неправильный блок! Игра окончена. Твой итоговый счёт: " + score, false);
+            }
+        }
+
+        function endGame(message, status) {
+            gameOver = true;
+            feedback.style.color = status ? 'rgb(51 98 255)' : '#e74c3c';
+            feedback.textContent = message;
+            stopTimer();
+            blocksContainer.querySelectorAll('.block').forEach(block => {
+                block.style.cursor = 'default';
+                block.tabIndex = -1;
+                // Отключаем слушатели (опционально)
+                block.replaceWith(block.cloneNode(true));
+            });
+            restartButton.style.display = 'inline-block'; // Показываем кнопку
+        }
+
+        document.getElementById('rsvp-button').addEventListener('click', () => {
+            responseMessage.textContent = 'Спасибо! Твоё участие подтверждено!';
+        });
+
+        restartButton.addEventListener('click', () => {
+            restartGame();
+        });
+
+        newTask();
+    </script>
+
+</body>
+
+</html>
